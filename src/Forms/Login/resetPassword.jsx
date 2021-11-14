@@ -22,8 +22,8 @@ class ResetPassword extends React.Component {
     await axios
       .get("https://jobs-api.squareboat.info/api/v1/auth/resetpassword/" + temp)
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
+        //console.log(res);
+        //console.log(res.data);
         if (res.data.success != true) {
           alert("Invalid Token");
           this.props.history.push("/");
@@ -65,8 +65,8 @@ class ResetPassword extends React.Component {
             data1
           )
           .then((res) => {
-            console.log(res);
-            console.log(res.data);
+            //console.log(res);
+            //console.log(res.data);
             if (res.data.success === true) {
               alert("Password has been Updated");
               localStorage.setItem("token", res.data.data.token);

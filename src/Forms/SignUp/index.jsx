@@ -70,8 +70,8 @@ class Signup extends React.Component {
                 data1
               )
               .then((res) => {
-                console.log(res);
-                console.log(res.data);
+                //console.log(res);
+                //console.log(res.data);
                 if (res.data.success === true) {
                   localStorage.setItem("token", res.data.data.token);
                   this.props.history.push("/jobs");

@@ -46,8 +46,8 @@ class Login extends Component {
         axios
           .post("https://jobs-api.squareboat.info/api/v1/auth/login", data1)
           .then((res) => {
-            console.log(res);
-            console.log(res.data);
+            //console.log(res);
+            //console.log(res.data);
             if (res.data.success === true) {
               localStorage.setItem("token", res.data.data.token);
               this.props.history.push("/jobs");

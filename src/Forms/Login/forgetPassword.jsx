@@ -34,8 +34,8 @@ class ForgotPassword extends React.Component {
             this.state.email
         )
         .then((res) => {
-          console.log(res);
-          console.log(res.data);
+          //console.log(res);
+          //console.log(res.data);
           if (res.data.success === true) {
             alert("Email has been sent");
             localStorage.setItem("resetToken", res.data.data.token);
