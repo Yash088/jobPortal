@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { connect } from 'react-redux';
 import Header from "./Header";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import Login from "./Forms/Login";
