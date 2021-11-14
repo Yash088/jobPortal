@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/Yash088/jobPortal/static/css/main.175be56f.chunk.css",
+    "main.js": "/Yash088/jobPortal/static/js/main.8f93c9f4.chunk.js",
+    "main.js.map": "/Yash088/jobPortal/static/js/main.8f93c9f4.chunk.js.map",
+    "runtime-main.js": "/Yash088/jobPortal/static/js/runtime-main.14fd52bc.js",
+    "runtime-main.js.map": "/Yash088/jobPortal/static/js/runtime-main.14fd52bc.js.map",
+    "static/js/2.14ba343f.chunk.js": "/Yash088/jobPortal/static/js/2.14ba343f.chunk.js",
+    "static/js/2.14ba343f.chunk.js.map": "/Yash088/jobPortal/static/js/2.14ba343f.chunk.js.map",
+    "static/js/3.723164f2.chunk.js": "/Yash088/jobPortal/static/js/3.723164f2.chunk.js",
+    "static/js/3.723164f2.chunk.js.map": "/Yash088/jobPortal/static/js/3.723164f2.chunk.js.map",
+    "index.html": "/Yash088/jobPortal/index.html",
+    "static/css/main.175be56f.chunk.css.map": "/Yash088/jobPortal/static/css/main.175be56f.chunk.css.map",
+    "static/js/2.14ba343f.chunk.js.LICENSE.txt": "/Yash088/jobPortal/static/js/2.14ba343f.chunk.js.LICENSE.txt",
+    "static/media/image.1f9cc628.jpg": "/Yash088/jobPortal/static/media/image.1f9cc628.jpg",
+    "static/media/logo1.016d101d.png": "/Yash088/jobPortal/static/media/logo1.016d101d.png",
+    "static/media/logo3.064eda09.png": "/Yash088/jobPortal/static/media/logo3.064eda09.png",
+    "static/media/logo4.daefd1b2.png": "/Yash088/jobPortal/static/media/logo4.daefd1b2.png",
+    "static/media/logo5.e1d58ca9.png": "/Yash088/jobPortal/static/media/logo5.e1d58ca9.png",
+    "static/media/logo6.c4220425.png": "/Yash088/jobPortal/static/media/logo6.c4220425.png",
+    "static/media/logo7.280558e2.png": "/Yash088/jobPortal/static/media/logo7.280558e2.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.14fd52bc.js",
+    "static/js/2.14ba343f.chunk.js",
+    "static/css/main.175be56f.chunk.css",
+    "static/js/main.8f93c9f4.chunk.js"
+  ]
+}
