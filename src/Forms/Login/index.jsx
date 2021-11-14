@@ -11,7 +11,8 @@ class Login extends Component {
       email: "",
       emailError: false,
       password: "",
-      passwordError: false
+      passwordError: false,
+      error: ""
     };
     this.checkoutSubmit = this.checkoutSubmit.bind(this);
   }
@@ -19,16 +20,24 @@ class Login extends Component {
     let email = this.state.email;
 
     if (this.state.password === "") {
-      this.setState({ passwordError: "Invalid Password" });
+      this.setState({
+        emailError: true,
+        passwordError: true,
+        error: "Incorrect email address or password."
+      });
     } else {
-      this.setState({ passwordError: "" });
+      this.setState({ emailError: false, passwordError: "", error: "" });
       if (
         this.state.email === "" ||
         email.match("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$") == null
       ) {
-        this.setState({ emailError: "Invalid Email" });
+        this.setState({
+          emailError: true,
+          passwordError: true,
+          error: "Incorrect email address or password."
+        });
       } else {
-        this.setState({ emailError: "", passwordError: "" });
+        this.setState({ emailError: "", passwordError: "", error: "" });
         const data1 = {
           email: this.state.email,
           password: this.state.password
@@ -40,15 +49,16 @@ class Login extends Component {
             console.log(res);
             console.log(res.data);
             if (res.data.success === true) {
-              console.log("Logeed in", res.data.data.token);
               localStorage.setItem("token", res.data.data.token);
-              if (res.data.data.userRole === 1) {
-                alert("Hi admin");
-              } else {
-                alert("Welcome candidate");
-              }
+              this.props.history.push("/jobs");
+            }
+          })
+          .catch(function (error) {
+            if (error.data.message) {
+              this.setState({ error: error.data.message });
             } else {
-              this.setState({ emailError: true, passwordError: true });
+              let temp = Object.values(error.data.data.errors);
+              this.setState({ error: temp[0] });
             }
           });
       }
@@ -65,19 +75,28 @@ class Login extends Component {
       <React.Fragment>
         <div className="login-container">
           <Grid item className="login-card" md={7} lg={5} xs={10} sm={9}>
+            <h3>Login</h3>
             <h5>Email</h5>
             <OutlinedInput
               fullWidth
               required
               type="email"
               onChange={(e) => this.changeInputValue(e.target.value, "email")}
-              helperText={this.state.emailError ? this.state.emailError : ""}
               error={this.state.emailError ? true : false}
               labelWidth={0}
             />
             <h5 style={{ display: "inline-block" }}>Password</h5>
-            <h5 style={{ display: "inline-block", float: "right" }}>
-              Forgot Password
+            <h5
+              style={{
+                display: "inline-block",
+                float: "right",
+                color: "#43AFFF"
+              }}
+            >
+              <Link style={{ color: "#43AFFF" }} to="/forgotPassword">
+                {" "}
+                Forgot Password?{" "}
+              </Link>
             </h5>
             <OutlinedInput
               required
@@ -86,24 +105,33 @@ class Login extends Component {
                 this.changeInputValue(e.target.value, "password")
               }
               fullWidth
-              helperText={
-                this.state.passwordError ? this.state.passwordError : ""
-              }
+              helperText
+              minLength="6"
               error={this.state.passwordError ? true : false}
               labelWidth={0}
             />
+            <div className="error-block">
+              <p className="error">
+                {this.state.error ? this.state.error : ""}
+              </p>
+            </div>
             <center>
               <Button
                 variant="contained"
-                color="primary"
-                style={{ margin: "20px" }}
+                style={{
+                  margin: "20px",
+                  backgroundColor: "#43AFFF",
+                  color: "#fff"
+                }}
                 onClick={this.checkoutSubmit}
               >
                 Submit
               </Button>
-              <p>
+              <p style={{ fontWeight: 600 }}>
                 New to MyJobs?
-                <Link to="/signup">Create an account</Link>
+                <Link to="/signup" style={{ color: "#43AFFF" }}>
+                  Create an account
+                </Link>
               </p>
             </center>
           </Grid>

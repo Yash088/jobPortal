@@ -75,7 +75,7 @@ class Home extends Component {
             </div>
             <div className="whyUs-box">
               <div className="whyUs-heading">
-                <h1>Get more visibility</h1>
+                <h1>Organize your candidates</h1>
               </div>
               <p className="whyUs-desc">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -84,7 +84,7 @@ class Home extends Component {
             </div>
             <div className="whyUs-box">
               <div className="whyUs-heading">
-                <h1>Get more visibility</h1>
+                <h1>Verify their abilities</h1>
               </div>
               <p className="whyUs-desc">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

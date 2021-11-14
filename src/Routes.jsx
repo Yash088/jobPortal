@@ -7,9 +7,11 @@ import Header from "./Header";
 import { Switch, Route, withRouter } from "react-router-dom";
 import Cookie from "js-cookie";
 import Login from "./Forms/Login";
+import ResetPassword from "./Forms/Login/resetPassword";
 import Home from "./Home";
 import Signup from "./Forms/SignUp";
-
+import ForgotPassword from "./Forms/Login/forgetPassword";
+import JobCard from "./JobCard";
 class Routes extends Component {
   // displayName = "Routes";
 
@@ -40,6 +42,9 @@ class Routes extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/forgotPassword" component={ForgotPassword} />
+          <Route exact path="/reset" component={ResetPassword} />
+          <Route exact path="/jobs" component={JobCard} />
           {/* <Redirect from="/index.html" to="/" /> */}
         </Switch>
       </React.Fragment>

@@ -11,6 +11,17 @@
   background: linear-gradient(to bottom, #1a253c 30%, #edf6ff 0%);
   height: 100vh;
 }
+.name {
+  border-radius: 50%;
+  background-color: rgb(217, 239, 255);
+  height: 70px;
+  width: 70px;
+  font-size: 40px;
+  text-align: center;
+}
+.MuiDialog-paperScrollPaper {
+  width: 50vw !important;
+}
 .job-card-container {
   display: flex;
   flex-wrap: wrap;
@@ -20,6 +31,18 @@
     justify-content: space-between;
     width: 100%; */
 }
+.application-container {
+  margin: 10px;
+  background: #a9afbc;
+  border-radius: 20px;
+  padding: 10px;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  flex: 0 0 50%;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+}
 h4,
 p {
   margin: 5px;
@@ -27,11 +50,11 @@ p {
 .job-card {
   box-shadow: 0px 3px 6px #557da526;
   border-radius: 10px;
-  padding: 15px 15px;
+  padding: 20px 15px;
   background-color: #fff;
   text-align: left;
   width: 262px;
-  height: 150px;
+  // height: 150px;
   overflow: hidden;
   margin: 10px;
 }
@@ -39,8 +62,15 @@ p {
   color: #43afff;
   font-size: 17px !important;
 }
-.modal {
-  display: flex !important;
-  padding: 40px 0px;
-  justify-content: center !important;
+
+@media only screen and (max-width: 768px) {
+  .application-container {
+    flex: 0 0 100%;
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .MuiDialog-paperScrollPaper {
+    width: 90vw !important;
+  }
 }

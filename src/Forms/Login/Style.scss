@@ -11,12 +11,23 @@ p {
 .MuiInputBase-input {
   height: 0.1876em !important;
 }
+.error-block {
+  display: block;
+  overflow: hidden;
+}
+.error {
+  color: #ff0000;
+  font-weight: 600;
+  font-size: 10px;
+  float: right;
+}
 .login-card {
   box-shadow: 0px 3px 13px 0px grey;
   border-radius: 20px;
   padding: 30px 30px;
   background-color: #fff;
   width: 25%;
+  color: #303f60;
 }
 Button {
   align-self: center;

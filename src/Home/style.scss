@@ -58,9 +58,10 @@
   background-color: #fff;
 }
 .whyUs-heading {
-  width: 75%;
+  width: 100%;
   h1 {
     color: #43afff;
+    text-transform: capitalize;
   }
 }
 .whyUs-desc {
@@ -68,14 +69,16 @@
   text-align: justify;
 }
 
-.img-fluid {
-  width: 150px;
-  height: 150px;
-  margin: 50px;
-}
 .partner-container {
   justify-content: space-around;
   align-items: center;
+  div {
+    margin: 20px 60px 20px 60px;
+  }
+  .img-fluid {
+    width: 100px;
+    height: 100px;
+  }
 }
 @media only screen and (max-width: 1080px) {
   .section-wrapper {

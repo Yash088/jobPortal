@@ -73,29 +73,17 @@ class Signup extends React.Component {
                 console.log(res);
                 console.log(res.data);
                 if (res.data.success === true) {
-                  console.log("Sign Up Done", res.data.data.token);
                   localStorage.setItem("token", res.data.data.token);
-
-                  if (res.data.data.userRole === 1) {
-                    alert("Hi admin");
-                  } else {
-                    alert("Welcome candidate");
-                  }
-                } else {
-                  if (res.data.message) {
-                    this.setState({ error: res.data.message });
-                  } else {
-                    this.setState({ error: res.data.error });
-                  }
+                  this.props.history.push("/jobs");
                 }
               })
               .catch(function (error) {
-                console.log(error.response);
-                // if (error.response.data.message) {
-                //   this.setState({ error: error.response.data.message });
-                // } else {
-                //   this.setState({ error: error.response.data.errors[0] });
-                // }
+                if (error.data.message) {
+                  this.setState({ error: error.data.message });
+                } else {
+                  let temp = Object.values(error.data.data.errors);
+                  this.setState({ error: temp[0] });
+                }
               });
           }
         }
@@ -159,14 +147,9 @@ class Signup extends React.Component {
                   fullWidth
                   type="password"
                   onChange={async (e) => {
-                    //conirm password
                     const data = await this.changeInputValue(
                       e.target.value,
                       "confirmPassword"
-                    );
-                    console.log(
-                      this.state.password,
-                      this.state.confirmPassword
                     );
                     if (this.state.password == this.state.confirmPassword) {
                       this.setState({ confirmPasswordError: false });
@@ -192,7 +175,7 @@ class Signup extends React.Component {
               labelWidth={0}
             />
             <center>
-              <p>{this.state.error ? this.state.error : ""}</p>
+              <p style={{}}>{this.state.error ? this.state.error : ""}</p>
               <Button
                 variant="contained"
                 color="primary"
