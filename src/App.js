@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import Routes from "./Routes";
+import { Provider } from "react-redux";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// import { createStore, applyMiddleware, compose } from "redux";
+// import createSagaMiddleware from "redux-saga";
+
+// import reducer from './redux/rootReducer'
+// import mySaga from './redux/rootSaga'
+
+// // create the saga middleware
+// const sagaMiddleware = createSagaMiddleware()
+// // mount it on the Store
+// const store = createStore(
+//   reducer,
+//   compose(applyMiddleware(sagaMiddleware))
+// )
+
+// // then run the saga
+// sagaMiddleware.run(mySaga);
+
+export const history = createBrowserHistory();
+class App extends Component {
+  render() {
+    return (
+      // <Provider store={store}>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+      // </Provider>
+    );
+  }
 }
-
 export default App;
