@@ -6,9 +6,13 @@ import ResetPassword from "./Forms/Login/resetPassword";
 import Home from "./Home";
 import Signup from "./Forms/SignUp";
 import ForgotPassword from "./Forms/Login/forgetPassword";
+import PostJob from "./Forms/Login/postJob";
 import JobCard from "./JobCard";
+import { connect } from "react-redux";
 class Routes extends Component {
   render() {
+    let token = localStorage.getItem("token");
+    let auth = localStorage.getItem("auth");
     return (
       <React.Fragment>
         <Header />
@@ -19,13 +23,35 @@ class Routes extends Component {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/forgotPassword" component={ForgotPassword} />
           <Route exact path="/reset" component={ResetPassword} />
+          {token ? (
+            auth ? (
+              <React.Fragment>
+                <Route exact path="/jobs" component={JobCard} />
+                <Route exact path="/PostJob" component={Home} />
+                <Route exact path="/jobPortal" component={Home} />
+                <Route exact path="/postJob" component={PostJob} />
+              </React.Fragment>
+            ) : (
+              false
+            )
+          ) : (
+            false
+          )}
           <Route exact path="/jobs" component={JobCard} />
+          <Route exact path="/PostJob" component={Home} />
           <Route exact path="/jobPortal" component={Home} />
+          <Route exact path="/postJob" component={PostJob} />
+
           <Redirect from="*" to="/Home" />
         </Switch>
       </React.Fragment>
     );
   }
 }
-
-export default withRouter(Routes);
+const mapStateToProps = (state) => {
+  return {
+    // To get the list of employee details from store
+    auth: state.login.loginData
+  };
+};
+export default withRouter(connect(mapStateToProps, null)(Routes));

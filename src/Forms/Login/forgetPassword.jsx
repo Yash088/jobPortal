@@ -43,8 +43,9 @@ class ForgotPassword extends React.Component {
           }
         })
         .catch(function (error) {
-          if (error.data.message) {
-            this.setState({ error: error.data.message });
+          console.clear();
+          if (error.response.data.message) {
+            this.setState({ error: error.response.data.message });
           } else {
             let temp = Object.values(error.data.data.errors);
             this.setState({ error: temp[0] });

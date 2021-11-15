@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/jobPortal/static/css/main.cd85d848.chunk.css",
-    "main.js": "/jobPortal/static/js/main.0046b6ce.chunk.js",
-    "main.js.map": "/jobPortal/static/js/main.0046b6ce.chunk.js.map",
-    "runtime-main.js": "/jobPortal/static/js/runtime-main.7a1dcbf3.js",
-    "runtime-main.js.map": "/jobPortal/static/js/runtime-main.7a1dcbf3.js.map",
-    "static/js/2.d5ec89ab.chunk.js": "/jobPortal/static/js/2.d5ec89ab.chunk.js",
-    "static/js/2.d5ec89ab.chunk.js.map": "/jobPortal/static/js/2.d5ec89ab.chunk.js.map",
-    "static/js/3.ae734c6d.chunk.js": "/jobPortal/static/js/3.ae734c6d.chunk.js",
-    "static/js/3.ae734c6d.chunk.js.map": "/jobPortal/static/js/3.ae734c6d.chunk.js.map",
+    "main.css": "/jobPortal/static/css/main.869bba5e.chunk.css",
+    "main.js": "/jobPortal/static/js/main.cc9e62d2.chunk.js",
+    "main.js.map": "/jobPortal/static/js/main.cc9e62d2.chunk.js.map",
+    "runtime-main.js": "/jobPortal/static/js/runtime-main.da1f44ba.js",
+    "runtime-main.js.map": "/jobPortal/static/js/runtime-main.da1f44ba.js.map",
+    "static/js/2.9b0d8033.chunk.js": "/jobPortal/static/js/2.9b0d8033.chunk.js",
+    "static/js/2.9b0d8033.chunk.js.map": "/jobPortal/static/js/2.9b0d8033.chunk.js.map",
+    "static/js/3.5d71abd7.chunk.js": "/jobPortal/static/js/3.5d71abd7.chunk.js",
+    "static/js/3.5d71abd7.chunk.js.map": "/jobPortal/static/js/3.5d71abd7.chunk.js.map",
     "index.html": "/jobPortal/index.html",
-    "static/css/main.cd85d848.chunk.css.map": "/jobPortal/static/css/main.cd85d848.chunk.css.map",
-    "static/js/2.d5ec89ab.chunk.js.LICENSE.txt": "/jobPortal/static/js/2.d5ec89ab.chunk.js.LICENSE.txt",
+    "static/css/main.869bba5e.chunk.css.map": "/jobPortal/static/css/main.869bba5e.chunk.css.map",
+    "static/js/2.9b0d8033.chunk.js.LICENSE.txt": "/jobPortal/static/js/2.9b0d8033.chunk.js.LICENSE.txt",
     "static/media/image.1f9cc628.jpg": "/jobPortal/static/media/image.1f9cc628.jpg",
     "static/media/logo1.016d101d.png": "/jobPortal/static/media/logo1.016d101d.png",
     "static/media/logo3.064eda09.png": "/jobPortal/static/media/logo3.064eda09.png",
@@ -21,9 +21,9 @@
     "static/media/logo7.280558e2.png": "/jobPortal/static/media/logo7.280558e2.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.7a1dcbf3.js",
-    "static/js/2.d5ec89ab.chunk.js",
-    "static/css/main.cd85d848.chunk.css",
-    "static/js/main.0046b6ce.chunk.js"
+    "static/js/runtime-main.da1f44ba.js",
+    "static/js/2.9b0d8033.chunk.js",
+    "static/css/main.869bba5e.chunk.css",
+    "static/js/main.cc9e62d2.chunk.js"
   ]
 }

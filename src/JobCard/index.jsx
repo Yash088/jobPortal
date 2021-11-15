@@ -10,10 +10,13 @@ import {
   Container,
   Grid
 } from "@material-ui/core";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
+import Pagination from "@material-ui/lab/Pagination";
+
 class JobCard extends Component {
   constructor(props) {
     super(props);
@@ -21,89 +24,180 @@ class JobCard extends Component {
       data: [],
       open: false,
       error: "",
-      modalData: []
+      modalData: [],
+      token: localStorage.getItem("token"),
+      anchorEl: false,
+      page: 1,
+      count: 1,
+      modalPage: 1,
+      modalCount: 0,
+      jobId: false
     };
   }
   async componentDidMount() {
-    await axios
-      .get("https://jobs-api.squareboat.info/api/v1/recruiters/jobs", {
-        headers: {
-          Authorization: this.state.token
-        }
-      })
-      .then((res) => {
-        if (res.data.success === true) {
-          this.setState({ data: res.data.data });
-        }
-      })
-      .catch(function (error) {});
-  }
-  handleOpen = async () => {
-    //calling single job api
-    await axios
-      .get("https://jobs-api.squareboat.info/api/v1/recruiters/jobs", {
-        headers: {
-          Authorization: this.state.token
-        }
-      })
-      .then((res) => {
-        if (res.data.success === true) {
-          this.setState({ modalData: res.data.data });
-        }
-      })
-      .catch(function (error) {
-        if (error.data.message) {
-          this.setState({ error: error.data.message });
-        } else {
-          let temp = Object.values(error.data.data.errors);
-          this.setState({ error: temp[0] });
-        }
+    let temp = localStorage.getItem("token");
+    if (temp) {
+      this.setState({ token: temp }, () => {
+        this.callJob(
+          "https://jobs-api.squareboat.info/api/v1/recruiters/jobs",
+          this.state.page,
+          "data",
+          "count"
+        );
       });
-    this.setState({ open: true });
+    } else {
+      this.props.history.push("/");
+    }
+  }
+  handleOpen = (param) => {
+    this.callJob(
+      "https://jobs-api.squareboat.info/api/v1/recruiters/jobs/" +
+        param +
+        "/candidates",
+      this.state.modalPage,
+      "modalData",
+      "modalCount"
+    );
+
+    this.setState({ open: true, jobId: param });
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, jobId: false });
+  };
+
+  handlePagination() {
+    this.setState(
+      (prevState) => ({ page: prevState + 1 }),
+      () => {
+        this.callJob(
+          "https://jobs-api.squareboat.info/api/v1/recruiters/jobs",
+          this.state.page,
+          "data",
+          "count"
+        );
+      }
+    );
+  }
+  handleModalPagination = () => {
+    this.setState(
+      (prevState) => ({ modalPage: prevState + 1 }),
+      () => {
+        this.callJob(
+          "https://jobs-api.squareboat.info/api/v1/recruiters/jobs/" +
+            this.state.jobId +
+            "/candidates",
+          this.state.modalPage,
+          "modalData",
+          "modalCount"
+        );
+      }
+    );
+  };
+
+  callJob = async (url, page, state, count) => {
+    await axios
+      .get(url + "?page=" + page, {
+        headers: {
+          Authorization: this.state.token
+        }
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.success === true && res.data.hasOwnProperty("message")) {
+        } else {
+          console.log();
+          let temp =
+            res.data.data.metadata.count < 20
+              ? 1
+              : Math.ceil(res.data.data.metadata.count / 20);
+          this.setState({
+            [state]: res.data.data.data,
+            [count]: temp
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        // this.props.history.push("/");
+      });
   };
   render() {
     return (
-      <React.Fragment>
-        {/* //Nav bar */}
+      <div className="job-container">
         {this.state.data.length > 0 ? (
           //Outer padding so that container can come inwards
           <div className="job-container">
-            <div className="job-card-container">
-              {this.state.data.map((job) => (
-                <div className="job-card" key={job.id}>
-                  <h4>{job.title}</h4>
-                  <p>{job.description}</p>
-                  <p
-                    style={{
-                      display: "inline-block",
-                      float: "left",
-                      fontSize: "17px"
-                    }}
-                  >
-                    <LocationOnOutlinedIcon className="location-icon" />
-                    {job.location}
-                  </p>
-                  <Button
-                    style={{
-                      display: "inline-block",
-                      color: "#303F60",
-                      background: "#43AFFF33",
-                      float: "right",
-                      textTransform: "capitalize"
-                    }}
-                    onClick={() => {
-                      this.handleOpen(job.id);
-                    }}
-                  >
-                    View Applications
-                  </Button>
-                </div>
-              ))}
+            <div
+              className="section-wrapper"
+              style={{ backgroundColor: "transparent" }}
+            >
+              <div
+                style={{
+                  display: "inline-block",
+                  color: "white"
+                }}
+              >
+                <HomeOutlinedIcon
+                  style={{ color: "white", fontSize: "17px" }}
+                />
+                <span style={{ marginLeft: "10px", fontSize: "17px" }}>
+                  Home
+                </span>
+              </div>
+              <h5
+                style={{
+                  color: "white",
+                  fontWeight: 600,
+                  margin: "20px 0px 20px 0px"
+                }}
+              >
+                Job posted by you
+              </h5>
+
+              <div className="job-card-container">
+                {this.state.data.map((job) => (
+                  <div className="job-card" key={job.id}>
+                    <h4>{job.title}</h4>
+                    <p>{job.description}</p>
+                    <p
+                      style={{
+                        display: "inline-block",
+                        float: "left",
+                        fontSize: "17px"
+                      }}
+                    >
+                      <LocationOnOutlinedIcon className="location-icon" />
+                      {job.location}
+                    </p>
+                    <Button
+                      style={{
+                        display: "inline-block",
+                        color: "#303F60",
+                        background: "#43AFFF33",
+                        float: "right",
+                        textTransform: "capitalize"
+                      }}
+                      onClick={() => {
+                        this.handleOpen(job.id);
+                      }}
+                    >
+                      View Applications
+                    </Button>
+                  </div>
+                ))}
+              </div>
             </div>
+            <center>
+              <div className="pagination">
+                <Pagination
+                  count={this.state.count}
+                  page={this.state.page}
+                  onChange={this.handlePagination}
+                  shape="rounded"
+                />
+              </div>
+            </center>
           </div>
         ) : (
           <div className="no-post-container">
@@ -112,7 +206,10 @@ class JobCard extends Component {
               style={{ fontSize: 80 }}
             />
             <p>Your posted jobs will show here!</p>
-            <Button style={{ background: "#43AFFF", color: "white" }}>
+            <Button
+              style={{ background: "#43AFFF", color: "white" }}
+              onClick={() => this.props.history.push("/postJob")}
+            >
               Post a Job
             </Button>
           </div>
@@ -124,7 +221,7 @@ class JobCard extends Component {
           onClose={this.handleClose}
           aria-labelledby="customized-dialog-title"
           open={this.state.open}
-          maxWidth={"lg"}
+          maxWidth={"xl"}
         >
           <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
             Applicants for this job
@@ -133,36 +230,53 @@ class JobCard extends Component {
             </Button>
           </DialogTitle>
           <DialogContent dividers>
-            <h5>total 35 participants</h5>
+            <h5>
+              {this.state.modalCount
+                ? "total " + this.state.modalCount + " participants"
+                : "0 applications"}{" "}
+            </h5>
             <div className="application-container">
-              <Grid
-                style={{
-                  border: "1px solid #303F6080",
-                  padding: "14px",
-                  borderRadius: "15px",
-                  color: "#303F60",
-                  background: "#FFFFFF",
-                  marginBottom: "10px"
-                }}
-              >
-                <div style={{ display: "flex" }}>
-                  <div className="name">
-                    <p>Y</p>
-                  </div>
-                  <div style={{ marginLeft: "20px" }}>
-                    <p style={{ color: "#303F60", fontWeight: "700" }}>
-                      Yash KAlra
-                    </p>
-                    <p>Yash KAlra@088gmail</p>
-                  </div>
+              {this.state.modalData.length > 0 ? (
+                this.state.modalData.map((data) => {
+                  <Grid
+                    style={{
+                      border: "1px solid #303F6080",
+                      padding: "14px",
+                      borderRadius: "15px",
+                      color: "#303F60",
+                      background: "#FFFFFF",
+                      marginBottom: "10px"
+                    }}
+                  >
+                    <div style={{ display: "flex" }}>
+                      <div className="name">
+                        <p>Y</p>
+                      </div>
+                      <div style={{ marginLeft: "20px" }}>
+                        <p style={{ color: "#303F60", fontWeight: "700" }}>
+                          {data.name}
+                        </p>
+                        <p>{data.email}</p>
+                      </div>
+                    </div>
+                    <p style={{ fontWeight: "600" }}>Skills:</p>
+                    <p>{data.skills}</p>
+                  </Grid>;
+                })
+              ) : (
+                <div className="application-container no-post-container">
+                  <DescriptionOutlinedIcon
+                    style={{ fontSize: 80, color: "#303F60" }}
+                  />
+                  <p style={{ collot: "#303F60" }}>
+                    No applications available!
+                  </p>
                 </div>
-                <p style={{ fontWeight: "600" }}>Skills:</p>
-                <p>hongi</p>
-              </Grid>
+              )}
             </div>
           </DialogContent>
         </Dialog>
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -1,9 +1,11 @@
 import "./Style.scss";
 // import Header from "./Header";
 import React, { Component } from "react";
-import { TextField, Grid, Button, OutlinedInput } from "@material-ui/core";
+import { Grid, Button, OutlinedInput } from "@material-ui/core";
 import { withRouter, Link } from "react-router-dom";
-import axios from "axios";
+import { connect } from "react-redux";
+import { login } from "../../redux/actions/login";
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -16,10 +18,28 @@ class Login extends Component {
     };
     this.checkoutSubmit = this.checkoutSubmit.bind(this);
   }
+  verifyLogin = (data) => {
+    console.log(data);
+    if (data.success) {
+      if (data.data.userRole) {
+        alert("Hi Candidate, No Further LInks for You.");
+      } else {
+        this.props.history.push("/jobs");
+      }
+    } else {
+      if (data.message) {
+        this.setState({ error: data.message });
+      } else {
+        let temp = Object.values(data.errors);
+        this.setState({ error: temp[0] });
+      }
+    }
+  };
+
   checkoutSubmit = async () => {
     let email = this.state.email;
 
-    if (this.state.password === "") {
+    if (this.state.password === "" || this.state.password.length < 6) {
       this.setState({
         emailError: true,
         passwordError: true,
@@ -40,27 +60,14 @@ class Login extends Component {
         this.setState({ emailError: "", passwordError: "", error: "" });
         const data1 = {
           email: this.state.email,
-          password: this.state.password
+          password: this.state.password,
+          cb: (data) => this.verifyLogin(data)
         };
-        //Call the Login Api
-        axios
-          .post("https://jobs-api.squareboat.info/api/v1/auth/login", data1)
-          .then((res) => {
-            //console.log(res);
-            //console.log(res.data);
-            if (res.data.success === true) {
-              localStorage.setItem("token", res.data.data.token);
-              this.props.history.push("/jobs");
-            }
-          })
-          .catch(function (error) {
-            if (error.data.message) {
-              this.setState({ error: error.data.message });
-            } else {
-              let temp = Object.values(error.data.data.errors);
-              this.setState({ error: temp[0] });
-            }
-          });
+        this.props.login({
+          email: this.state.email,
+          password: this.state.password,
+          cb: (data) => this.verifyLogin(data)
+        });
       }
     }
   };
@@ -94,8 +101,7 @@ class Login extends Component {
               }}
             >
               <Link style={{ color: "#43AFFF" }} to="/forgotPassword">
-                {" "}
-                Forgot Password?{" "}
+                Forgot Password?
               </Link>
             </h5>
             <OutlinedInput
@@ -105,8 +111,6 @@ class Login extends Component {
                 this.changeInputValue(e.target.value, "password")
               }
               fullWidth
-              helperText
-              minLength="6"
               error={this.state.passwordError ? true : false}
               labelWidth={0}
             />
@@ -141,4 +145,14 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+const mapStateToProps = (state) => {
+  return {
+    auth: state.login.loginData
+  };
+};
+
+const mapDispatchToProps = {
+  login
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
