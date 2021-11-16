@@ -23,24 +23,9 @@ class Routes extends Component {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/forgotPassword" component={ForgotPassword} />
           <Route exact path="/reset" component={ResetPassword} />
-          {token ? (
-            auth ? (
-              <React.Fragment>
-                <Route exact path="/jobs" component={JobCard} />
-                <Route exact path="/PostJob" component={Home} />
-                <Route exact path="/jobPortal" component={Home} />
-                <Route exact path="/postJob" component={PostJob} />
-              </React.Fragment>
-            ) : (
-              false
-            )
-          ) : (
-            false
-          )}
           <Route exact path="/jobs" component={JobCard} />
-          <Route exact path="/PostJob" component={Home} />
+          <Route exact path="/PostJob" component={PostJob} />
           <Route exact path="/jobPortal" component={Home} />
-          <Route exact path="/postJob" component={PostJob} />
 
           <Redirect from="*" to="/Home" />
         </Switch>
